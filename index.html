@@ -224,7 +224,7 @@
             };
 
             // Send order to server
-            fetch('https://store-api.glitch.me/api/order', {
+            fetch('https://enshrined-tame-flock.glitch.me/api/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -250,7 +250,7 @@
 
         async function checkFilterUpdate() {
             try {
-                const res = await fetch('https://store-api.glitch.me/api/filter');
+                const res = await fetch('https://enshrined-tame-flock.glitch.me/api/filter');
                 const filter = await res.json();
 
                 if (JSON.stringify(filter) !== JSON.stringify(lastFilter)) {
