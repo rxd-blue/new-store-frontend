@@ -27,8 +27,14 @@
 
         .product-image {
             height: 200px;
-            object-fit: cover;
-            border-radius: 15px 15px 0 0;
+            object-fit: contain;
+            background: #fff;
+            padding: 10px;
+            transition: opacity 0.3s;
+        }
+
+        .product-image.loading {
+            opacity: 0;
         }
 
         .hidden {
@@ -120,7 +126,7 @@
                 category: "تليفونات",
                 brand: "سامسونج",
                 price: 4999,
-                image: "https://m.media-amazon.com/images/I/61tx9Mq+iJL._AC_SX522_.jpg"
+                image: "https://images.samsung.com/is/image/samsung/p6pim/ae/sm-a236elbjmea/gallery/ae-galaxy-a23-sm-a236-sm-a236elbjmea-533186444?$650_519_PNG$"
             },
             {
                 id: 2,
@@ -128,7 +134,7 @@
                 category: "تليفونات",
                 brand: "شاومي",
                 price: 5999,
-                image: "https://m.media-amazon.com/images/I/51d6JWX+F9L._AC_SX522_.jpg"
+                image: "https://i02.appmifile.com/763_operator_sg/10/03/2023/fe25977dd42cf0a2d82c578c01a87fa3.png"
             },
             {
                 id: 3,
@@ -136,7 +142,7 @@
                 category: "غسالات",
                 brand: "LG",
                 price: 8999,
-                image: "https://m.media-amazon.com/images/I/61E+4sQknJL._AC_SX522_.jpg"
+                image: "https://www.lg.com/eg_ar/images/washing-machines/md07529605/gallery/D-1.jpg"
             },
             {
                 id: 4,
@@ -144,7 +150,7 @@
                 category: "غسالات",
                 brand: "سامسونج",
                 price: 9499,
-                image: "https://m.media-amazon.com/images/I/716YyGRH7EL._AC_SX522_.jpg"
+                image: "https://images.samsung.com/is/image/samsung/p6pim/ae/ww90t534dax1ae/gallery/ae-front-loading-washer-ww90t534dax1ae-374535-ww90t534dax1ae-530934614?$1300_1038_PNG$"
             },
             {
                 id: 5,
@@ -168,7 +174,7 @@
                 category: "تلفزيونات",
                 brand: "سامسونج",
                 price: 24999,
-                image: "https://m.media-amazon.com/images/I/71LJJrKbezL._AC_SX522_.jpg"
+                image: "https://images.samsung.com/is/image/samsung/p6pim/ae/qa65q60cauxzn/gallery/ae-qled-q60c-qa65q60cauxzn-537686087?$1300_1038_PNG$"
             },
             {
                 id: 8,
@@ -176,7 +182,7 @@
                 category: "تلفزيونات",
                 brand: "LG",
                 price: 27999,
-                image: "https://m.media-amazon.com/images/I/815pj+0yxbL._AC_SX522_.jpg"
+                image: "https://www.lg.com/eg_ar/images/tvs/md07554610/gallery/D-1.jpg"
             },
             {
                 id: 9,
@@ -184,7 +190,7 @@
                 category: "لابتوب",
                 brand: "ديل",
                 price: 34999,
-                image: "https://m.media-amazon.com/images/I/71G+M7OEFEL._AC_SX522_.jpg"
+                image: "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/xps-notebooks/xps-13-9315/media-gallery/notebook-xps-9315-nt-blue-gallery-1.psd?fmt=png-alpha&pscan=auto&scl=1&hei=402&wid=402&qlt=100,1&resMode=sharp2&size=402,402"
             },
             {
                 id: 10,
@@ -192,7 +198,7 @@
                 category: "لابتوب",
                 brand: "HP",
                 price: 32999,
-                image: "https://m.media-amazon.com/images/I/71nf-oQWyGL._AC_SX522_.jpg"
+                image: "https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08483494.png"
             },
             {
                 id: 11,
@@ -200,7 +206,7 @@
                 category: "تليفونات",
                 brand: "جوجل",
                 price: 19999,
-                image: "https://m.media-amazon.com/images/I/71BGpWQXJqL._AC_SX522_.jpg"
+                image: "https://lh3.googleusercontent.com/spp/AE_ITi2LHKQq-5D8-KP1y8Mwl2Vc9HEfgKxHSXR8vxqABMB9TIRm_1G3JH7KjX9_Jh8GZGtFXxFtc_Ij-7z4YEVOFNlcWpXJMrCHFnNXNdxMtAEqSOWR=w2560-h1440-rw-e365-v1-nu-pa-sc0x0"
             },
             {
                 id: 12,
@@ -216,7 +222,7 @@
                 category: "لابتوب",
                 brand: "هواوي",
                 price: 29999,
-                image: "https://m.media-amazon.com/images/I/61wcXOEFHSL._AC_SX522_.jpg"
+                image: "https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/plp/laptops/matebook-x-pro-2022-s.png"
             },
             {
                 id: 14,
@@ -224,7 +230,7 @@
                 category: "تليفونات",
                 brand: "ون بلس",
                 price: 17999,
-                image: "https://m.media-amazon.com/images/I/71K84j2O8wL._AC_SX522_.jpg"
+                image: "https://image01.oneplus.net/ebp/202212/27/1-m00-47-45-rb8bzmqp5ekaedksaaibohhm0hs013.png"
             },
             {
                 id: 15,
@@ -232,7 +238,7 @@
                 category: "غسالات",
                 brand: "ويرلبول",
                 price: 11999,
-                image: "https://m.media-amazon.com/images/I/61o+YH6WxIL._AC_SX522_.jpg"
+                image: "https://www.whirlpool.com.eg/media/catalog/product/cache/1/image/1200x/17f82f742ffe127f42dca9de82fb58b1/f/w/fwdg961483wbvgccex_front_1.jpg"
             },
             {
                 id: 16,
@@ -240,7 +246,7 @@
                 category: "تلفزيونات",
                 brand: "توشيبا",
                 price: 12999,
-                image: "https://m.media-amazon.com/images/I/71RxCmvnrbL._AC_SX522_.jpg"
+                image: "https://www.toshiba-tv.com/media/images/43U5050VE.png"
             },
             {
                 id: 17,
@@ -248,7 +254,7 @@
                 category: "لابتوب",
                 brand: "لينوفو",
                 price: 27999,
-                image: "https://m.media-amazon.com/images/I/71krmFgx5+L._AC_SX522_.jpg"
+                image: "https://www.lenovo.com/medias/lenovo-laptops-thinkpad-x1-carbon-gen-10-14-intel-hero.png?context=bWFzdGVyfHJvb3R8MzE1MjE4fGltYWdlL3BuZ3xoODEvaGM5LzE0ODg4NDc1ODk5OTM0LnBuZ3wzZjU1YzNmYmMzZDgxOTk4ZjA4Y2ZiOGQ3NjFhOGVjNmUyOWYxZmRhOWM2NjBmZWE0NzVjOTU2ZGZiZTk1YTZh"
             },
             {
                 id: 18,
@@ -256,7 +262,7 @@
                 category: "تليفونات",
                 brand: "سامسونج",
                 price: 31999,
-                image: "https://m.media-amazon.com/images/I/71Tt0M+KqwL._AC_SX522_.jpg"
+                image: "https://images.samsung.com/is/image/samsung/p6pim/ae/2302/gallery/ae-galaxy-s23-ultra-s918-sm-s918bzkcmea-534859681?$650_519_PNG$"
             },
             {
                 id: 19,
@@ -264,7 +270,7 @@
                 category: "غسالات",
                 brand: "بوش",
                 price: 13999,
-                image: "https://m.media-amazon.com/images/I/61ItrCtGRbL._AC_SX522_.jpg"
+                image: "https://www.bosch-home.com.eg/Files/Bosch2/Bosch_Product_Images/1200x650/WAX32M40FG_1200x650.jpg"
             },
             {
                 id: 20,
@@ -272,7 +278,7 @@
                 category: "لابتوب",
                 brand: "أسوس",
                 price: 44999,
-                image: "https://m.media-amazon.com/images/I/71WWNQJUgdL._AC_SX522_.jpg"
+                image: "https://dlcdnwebimgs.asus.com/files/media/9BFCFA82-44E7-40E9-A45F-4ABED273F687/v1/images/large/1.png"
             }
         ];
 
@@ -287,9 +293,10 @@
                 <div class="col-md-4 col-lg-3 product" data-category="${product.category}" data-brand="${product.brand}">
                     <div class="card product-card">
                         <img src="${product.image}" 
-                             class="card-img-top product-image" 
+                             class="card-img-top product-image loading" 
                              alt="${product.name}"
-                             onerror="this.onerror=null; this.src='https://via.placeholder.com/500x500?text=صورة+غير+متوفرة';">
+                             onload="this.classList.remove('loading')"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/500x500?text=صورة+غير+متوفرة'; this.classList.remove('loading');">
                         <div class="card-body">
                             <h5 class="card-title">${product.name}</h5>
                             <p class="card-text">
