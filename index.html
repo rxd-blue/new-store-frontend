@@ -6,9 +6,6 @@
     <title>متجر إلكتروني</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Botpress Webchat -->
-    <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js"></script>
-    <script src="https://files.bpcontent.cloud/2025/05/16/15/20250516151504-NOZ5039Y.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
         
@@ -73,25 +70,11 @@
         }
 
         /* Chatbot styles */
-        .bp-widget-widget {
-            right: 20px !important;
-            left: auto !important;
-            bottom: 20px !important;
+        #bp-widget {
             position: fixed !important;
-            z-index: 9999 !important;
-        }
-
-        .bp-widget-side {
+            bottom: 20px !important;
             right: 20px !important;
-            left: auto !important;
-        }
-
-        #bp-web-widget-container {
-            z-index: 9999;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            left: auto !important;
+            z-index: 9999 !important;
         }
 
         /* Ensure chat widget doesn't overlap with content */
@@ -577,35 +560,8 @@
         getCart(); // Initial cart fetch
     </script>
 
-    <!-- Chatbot initialization -->
-    <script>
-        window.botpressWebChat.init({
-            "composerPlaceholder": "اكتب رسالتك هنا...",
-            "botConversationDescription": "مساعد المتجر",
-            "botId": "NOZ5039Y",
-            "hostUrl": "https://cdn.botpress.cloud/webchat/v2.5",
-            "messagingUrl": "https://messaging.botpress.cloud",
-            "clientId": "NOZ5039Y",
-            "webhookId": "NOZ5039Y",
-            "lazySocket": false,
-            "frontendVersion": "v2.5",
-            "showPoweredBy": false,
-            "theme": "light",
-            "themeColor": "#2563eb",
-            "hideWidget": false,
-            "disableAnimations": false,
-            "closeOnEscape": false,
-            "showConversationsButton": true,
-            "enableTranscriptDownload": false,
-            "className": "bp-widget-web",
-            "containerWidth": "100%",
-            "layoutWidth": "100%",
-            "showCloseButton": false,
-            "enableConversationDeletion": false,
-            "useSessionStorage": true,
-            "locale": "ar",
-            "defaultLanguage": "ar"
-        });
-    </script>
+    <!-- Botpress Webchat -->
+    <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2025/05/16/15/20250516151504-NOZ5039Y.js"></script>
 </body>
 </html>
