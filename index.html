@@ -152,6 +152,7 @@
         let cart = [];
         let lastFilter = {};
         let currentOrder = null;
+        let lastOrderCheck = null;
 
         function renderProducts() {
             const container = document.getElementById('productsContainer');
@@ -214,6 +215,24 @@
             document.getElementById('productsSection').style.display = 'block';
         }
 
+        async function checkNewOrders() {
+            try {
+                const res = await fetch('https://airy-rattle-fountain.glitch.me/api/orders');
+                const orders = await res.json();
+                
+                if (orders && orders.length > 0) {
+                    const latestOrder = orders[orders.length - 1];
+                    
+                    if (!lastOrderCheck || latestOrder.id > lastOrderCheck) {
+                        lastOrderCheck = latestOrder.id;
+                        handleIncomingOrder(latestOrder);
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking orders:', error);
+            }
+        }
+
         function handleIncomingOrder(orderData) {
             currentOrder = orderData;
             document.getElementById('productsSection').style.display = 'none';
@@ -224,6 +243,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
                         <h5>${product.name}</h5>
+                        <small class="text-muted">السعر: ${product.price} ج.م</small>
                     </div>
                     <span>${product.price} ج.م</span>
                 </div>
@@ -301,6 +321,7 @@
         document.getElementById('cartBtn').addEventListener('click', showCheckout);
         renderProducts();
         setInterval(checkFilterUpdate, 2000);
+        setInterval(checkNewOrders, 2000);
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
