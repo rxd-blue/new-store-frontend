@@ -69,16 +69,26 @@
             font-size: 0.8rem;
         }
 
-        /* Custom styles for Botpress chat widget */
-        .bp-widget {
-            left: 20px !important;
-            right: auto !important;
+        /* Updated Chatbot styles */
+        .bp-widget-widget {
+            right: 20px !important;
+            left: auto !important;
+            bottom: 20px !important;
+            position: fixed !important;
             z-index: 9999 !important;
         }
 
-        .bp-widget-web .bp-widget-side {
-            left: 20px !important;
-            right: auto !important;
+        .bp-widget-side {
+            right: 20px !important;
+            left: auto !important;
+        }
+
+        #bp-web-widget-container {
+            z-index: 9999;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            left: auto !important;
         }
 
         /* Ensure chat widget doesn't overlap with content */
@@ -86,15 +96,6 @@
             .container {
                 margin-bottom: 80px;
             }
-        }
-
-        /* Chatbot styles */
-        #bp-web-widget-container {
-            z-index: 9999;
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: auto !important;
         }
     </style>
 </head>
@@ -573,39 +574,10 @@
         getCart(); // Initial cart fetch
     </script>
 
-    <!-- Chatbot scripts -->
-    <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js"></script>
-    <script>
-        window.addEventListener('load', () => {
-            window.botpressWebChat.init({
-                "composerPlaceholder": "اكتب رسالتك هنا...",
-                "botConversationDescription": "مساعد المتجر",
-                "botId": "NOZ5039Y",
-                "hostUrl": "https://cdn.botpress.cloud/webchat/v2.5",
-                "messagingUrl": "https://messaging.botpress.cloud",
-                "clientId": "NOZ5039Y",
-                "webhookId": "NOZ5039Y",
-                "lazySocket": true,
-                "themeName": "prism",
-                "frontendVersion": "v2.5",
-                "showPoweredBy": false,
-                "theme": "light",
-                "themeColor": "#2563eb",
-                "hideWidget": false,
-                "disableAnimations": false,
-                "closeOnEscape": false,
-                "showConversationsButton": true,
-                "enableTranscriptDownload": false,
-                "className": "bp-widget-web",
-                "containerWidth": "100%",
-                "layoutWidth": "100%",
-                "showCloseButton": true,
-                "enableConversationDeletion": true,
-                "useSessionStorage": true,
-                "locale": "ar",
-                "defaultLanguage": "ar"
-            });
-        });
-    </script>
+    <!-- Botpress Webchat -->
+    <iframe 
+        src="https://cdn.botpress.cloud/webchat/v2.5/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/16/15/20250516151504-6BNV4UI7.json"
+        style="position: fixed; bottom: 20px; right: 20px; height: 500px; width: 300px; border: none; z-index: 9999;"
+    ></iframe>
 </body>
 </html>
