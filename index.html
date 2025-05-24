@@ -6,8 +6,6 @@
     <title>متجر إلكتروني</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js"></script>
-    <script src="https://files.bpcontent.cloud/2025/05/16/15/20250516151504-NOZ5039Y.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
         
@@ -89,6 +87,15 @@
                 margin-bottom: 80px;
             }
         }
+
+        /* Chatbot styles */
+        #bp-web-widget-container {
+            z-index: 9999;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: auto !important;
+        }
     </style>
 </head>
 <body>
@@ -139,178 +146,183 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Main application script -->
     <script>
-        const products = [
-            {
-                id: 1,
-                name: "Samsung Galaxy A23",
-                category: "تليفونات",
-                brand: "سامسونج",
-                price: 4999,
-                image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&q=80"
-            },
-            {
-                id: 2,
-                name: "Xiaomi Note 12",
-                category: "تليفونات",
-                brand: "شاومي",
-                price: 5999,
-                image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&q=80"
-            },
-            {
-                id: 3,
-                name: "LG WashPro",
-                category: "غسالات",
-                brand: "LG",
-                price: 8999,
-                image: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=500&q=80"
-            },
-            {
-                id: 4,
-                name: "Samsung WashX",
-                category: "غسالات",
-                brand: "سامسونج",
-                price: 9499,
-                image: "https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?w=500&q=80"
-            },
-            {
-                id: 5,
-                name: "iPhone 14 Pro",
-                category: "تليفونات",
-                brand: "آبل",
-                price: 42999,
-                image: "https://images.unsplash.com/photo-1678652197831-2d180705cd2c?w=500&q=80"
-            },
-            {
-                id: 6,
-                name: "MacBook Air M2",
-                category: "لابتوب",
-                brand: "آبل",
-                price: 49999,
-                image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80"
-            },
-            {
-                id: 7,
-                name: "Samsung QLED 65\"",
-                category: "تلفزيونات",
-                brand: "سامسونج",
-                price: 24999,
-                image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&q=80"
-            },
-            {
-                id: 8,
-                name: "LG OLED 55\"",
-                category: "تلفزيونات",
-                brand: "LG",
-                price: 27999,
-                image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&q=80"
-            },
-            {
-                id: 9,
-                name: "Dell XPS 13",
-                category: "لابتوب",
-                brand: "ديل",
-                price: 34999,
-                image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&q=80"
-            },
-            {
-                id: 10,
-                name: "HP Spectre x360",
-                category: "لابتوب",
-                brand: "HP",
-                price: 32999,
-                image: "https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=500&q=80"
-            },
-            {
-                id: 11,
-                name: "Google Pixel 7 Pro",
-                category: "تليفونات",
-                brand: "جوجل",
-                price: 19999,
-                image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80"
-            },
-            {
-                id: 12,
-                name: "Sony Bravia 75\"",
-                category: "تلفزيونات",
-                brand: "سوني",
-                price: 39999,
-                image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&q=80"
-            },
-            {
-                id: 13,
-                name: "Huawei MateBook X Pro",
-                category: "لابتوب",
-                brand: "هواوي",
-                price: 29999,
-                image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&q=80"
-            },
-            {
-                id: 14,
-                name: "OnePlus 11",
-                category: "تليفونات",
-                brand: "ون بلس",
-                price: 17999,
-                image: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=500&q=80"
-            },
-            {
-                id: 15,
-                name: "Whirlpool Supreme",
-                category: "غسالات",
-                brand: "ويرلبول",
-                price: 11999,
-                image: "https://images.pexels.com/photos/5816934/pexels-photo-5816934.jpeg?auto=compress&cs=tinysrgb&w=500"
-            },
-            {
-                id: 16,
-                name: "Toshiba Smart TV 50\"",
-                category: "تلفزيونات",
-                brand: "توشيبا",
-                price: 12999,
-                image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&q=80"
-            },
-            {
-                id: 17,
-                name: "Lenovo ThinkPad X1",
-                category: "لابتوب",
-                brand: "لينوفو",
-                price: 27999,
-                image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500&q=80"
-            },
-            {
-                id: 18,
-                name: "Samsung Galaxy S23 Ultra",
-                category: "تليفونات",
-                brand: "سامسونج",
-                price: 31999,
-                image: "https://images.unsplash.com/photo-1610945264803-c22b62d2a7b3?w=500&q=80"
-            },
-            {
-                id: 19,
-                name: "Bosch Series 8",
-                category: "غسالات",
-                brand: "بوش",
-                price: 13999,
-                image: "https://images.unsplash.com/photo-1590959651373-a3db0f38a961?w=500&q=80"
-            },
-            {
-                id: 20,
-                name: "Asus ROG Zephyrus",
-                category: "لابتوب",
-                brand: "أسوس",
-                price: 44999,
-                image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500&q=80"
-            }
-        ];
-
-        let cart = [];
-        let lastFilter = {};
-        let currentOrder = null;
-        let lastOrderCheck = null;
+        // Global variables and data
+        window.store = {
+            cart: [],
+            lastFilter: {},
+            currentOrder: null,
+            lastOrderCheck: null,
+            products: [
+                {
+                    id: 1,
+                    name: "Samsung Galaxy A23",
+                    category: "تليفونات",
+                    brand: "سامسونج",
+                    price: 4999,
+                    image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&q=80"
+                },
+                {
+                    id: 2,
+                    name: "Xiaomi Note 12",
+                    category: "تليفونات",
+                    brand: "شاومي",
+                    price: 5999,
+                    image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&q=80"
+                },
+                {
+                    id: 3,
+                    name: "LG WashPro",
+                    category: "غسالات",
+                    brand: "LG",
+                    price: 8999,
+                    image: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=500&q=80"
+                },
+                {
+                    id: 4,
+                    name: "Samsung WashX",
+                    category: "غسالات",
+                    brand: "سامسونج",
+                    price: 9499,
+                    image: "https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?w=500&q=80"
+                },
+                {
+                    id: 5,
+                    name: "iPhone 14 Pro",
+                    category: "تليفونات",
+                    brand: "آبل",
+                    price: 42999,
+                    image: "https://images.unsplash.com/photo-1678652197831-2d180705cd2c?w=500&q=80"
+                },
+                {
+                    id: 6,
+                    name: "MacBook Air M2",
+                    category: "لابتوب",
+                    brand: "آبل",
+                    price: 49999,
+                    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80"
+                },
+                {
+                    id: 7,
+                    name: "Samsung QLED 65\"",
+                    category: "تلفزيونات",
+                    brand: "سامسونج",
+                    price: 24999,
+                    image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&q=80"
+                },
+                {
+                    id: 8,
+                    name: "LG OLED 55\"",
+                    category: "تلفزيونات",
+                    brand: "LG",
+                    price: 27999,
+                    image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&q=80"
+                },
+                {
+                    id: 9,
+                    name: "Dell XPS 13",
+                    category: "لابتوب",
+                    brand: "ديل",
+                    price: 34999,
+                    image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&q=80"
+                },
+                {
+                    id: 10,
+                    name: "HP Spectre x360",
+                    category: "لابتوب",
+                    brand: "HP",
+                    price: 32999,
+                    image: "https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=500&q=80"
+                },
+                {
+                    id: 11,
+                    name: "Google Pixel 7 Pro",
+                    category: "تليفونات",
+                    brand: "جوجل",
+                    price: 19999,
+                    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80"
+                },
+                {
+                    id: 12,
+                    name: "Sony Bravia 75\"",
+                    category: "تلفزيونات",
+                    brand: "سوني",
+                    price: 39999,
+                    image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&q=80"
+                },
+                {
+                    id: 13,
+                    name: "Huawei MateBook X Pro",
+                    category: "لابتوب",
+                    brand: "هواوي",
+                    price: 29999,
+                    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&q=80"
+                },
+                {
+                    id: 14,
+                    name: "OnePlus 11",
+                    category: "تليفونات",
+                    brand: "ون بلس",
+                    price: 17999,
+                    image: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=500&q=80"
+                },
+                {
+                    id: 15,
+                    name: "Whirlpool Supreme",
+                    category: "غسالات",
+                    brand: "ويرلبول",
+                    price: 11999,
+                    image: "https://images.pexels.com/photos/5816934/pexels-photo-5816934.jpeg?auto=compress&cs=tinysrgb&w=500"
+                },
+                {
+                    id: 16,
+                    name: "Toshiba Smart TV 50\"",
+                    category: "تلفزيونات",
+                    brand: "توشيبا",
+                    price: 12999,
+                    image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&q=80"
+                },
+                {
+                    id: 17,
+                    name: "Lenovo ThinkPad X1",
+                    category: "لابتوب",
+                    brand: "لينوفو",
+                    price: 27999,
+                    image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500&q=80"
+                },
+                {
+                    id: 18,
+                    name: "Samsung Galaxy S23 Ultra",
+                    category: "تليفونات",
+                    brand: "سامسونج",
+                    price: 31999,
+                    image: "https://images.unsplash.com/photo-1610945264803-c22b62d2a7b3?w=500&q=80"
+                },
+                {
+                    id: 19,
+                    name: "Bosch Series 8",
+                    category: "غسالات",
+                    brand: "بوش",
+                    price: 13999,
+                    image: "https://images.unsplash.com/photo-1590959651373-a3db0f38a961?w=500&q=80"
+                },
+                {
+                    id: 20,
+                    name: "Asus ROG Zephyrus",
+                    category: "لابتوب",
+                    brand: "أسوس",
+                    price: 44999,
+                    image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500&q=80"
+                }
+            ]
+        };
 
         function renderProducts() {
             const container = document.getElementById('productsContainer');
-            container.innerHTML = products.map(product => `
+            container.innerHTML = window.store.products.map(product => `
                 <div class="col-md-4 col-lg-3 product" data-category="${product.category}" data-brand="${product.brand}">
                     <div class="card product-card">
                         <img src="${product.image}" 
@@ -335,14 +347,82 @@
             `).join('');
         }
 
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            cart.push(product);
-            updateCartCount();
+        // Cart API functions
+        async function addToCart(productId) {
+            const product = window.store.products.find(p => p.id === productId);
+            if (!product) return;
+
+            try {
+                const response = await fetch('https://airy-rattle-fountain.glitch.me/api/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        productId: product.id,
+                        name: product.name,
+                        price: product.price
+                    })
+                });
+
+                if (response.ok) {
+                    window.store.cart.push(product);
+                    updateCartCount();
+                    // Show success message
+                    const successToast = document.createElement('div');
+                    successToast.className = 'alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3';
+                    successToast.style.zIndex = '9999';
+                    successToast.textContent = 'تمت إضافة المنتج إلى السلة';
+                    document.body.appendChild(successToast);
+                    setTimeout(() => successToast.remove(), 3000);
+                } else {
+                    throw new Error('Failed to add to cart');
+                }
+            } catch (error) {
+                console.error('Error adding to cart:', error);
+                // Show error message
+                const errorToast = document.createElement('div');
+                errorToast.className = 'alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3';
+                errorToast.style.zIndex = '9999';
+                errorToast.textContent = 'حدث خطأ أثناء إضافة المنتج';
+                document.body.appendChild(errorToast);
+                setTimeout(() => errorToast.remove(), 3000);
+            }
         }
 
         function updateCartCount() {
-            document.getElementById('cartCount').textContent = cart.length;
+            document.getElementById('cartCount').textContent = window.store.cart.length;
+        }
+
+        async function getCart() {
+            try {
+                const response = await fetch('https://airy-rattle-fountain.glitch.me/api/cart');
+                if (response.ok) {
+                    const cartData = await response.json();
+                    window.store.cart.length = 0;
+                    window.store.cart.push(...(cartData.items || []));
+                    updateCartCount();
+                    if (document.getElementById('checkoutSection').style.display === 'block') {
+                        renderCheckout();
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching cart:', error);
+            }
+        }
+
+        async function clearCart() {
+            try {
+                const response = await fetch('https://airy-rattle-fountain.glitch.me/api/cart/clear', {
+                    method: 'POST'
+                });
+                if (response.ok) {
+                    window.store.cart.length = 0;
+                    updateCartCount();
+                }
+            } catch (error) {
+                console.error('Error clearing cart:', error);
+            }
         }
 
         function showCheckout() {
@@ -353,9 +433,9 @@
 
         function renderCheckout() {
             const container = document.getElementById('checkoutItems');
-            const total = cart.reduce((sum, product) => sum + product.price, 0);
+            const total = window.store.cart.reduce((sum, product) => sum + product.price, 0);
             
-            container.innerHTML = cart.map(product => `
+            container.innerHTML = window.store.cart.map(product => `
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
                         <h5>${product.name}</h5>
@@ -373,16 +453,64 @@
             document.getElementById('productsSection').style.display = 'block';
         }
 
+        function showSuccessMessage() {
+            document.getElementById('checkoutSection').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        }
+
+        function hideSuccessMessage() {
+            document.getElementById('successMessage').style.display = 'none';
+            backToProducts();
+        }
+
+        // Modified checkout function
+        async function confirmOrder() {
+            const orderData = window.store.currentOrder || {
+                products: window.store.cart.map(p => ({
+                    id: p.id,
+                    name: p.name,
+                    price: p.price
+                })),
+                totalPrice: window.store.cart.reduce((sum, p) => sum + p.price, 0)
+            };
+
+            try {
+                const response = await fetch('https://airy-rattle-fountain.glitch.me/api/order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                if (response.status === 201) {
+                    await clearCart();
+                    showSuccessMessage();
+                    window.store.currentOrder = null;
+                } else {
+                    throw new Error('Failed to create order');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                const errorToast = document.createElement('div');
+                errorToast.className = 'alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3';
+                errorToast.style.zIndex = '9999';
+                errorToast.textContent = 'حدث خطأ أثناء إنشاء الطلب';
+                document.body.appendChild(errorToast);
+                setTimeout(() => errorToast.remove(), 3000);
+            }
+        }
+
         async function checkNewOrders() {
             try {
-                const res = await fetch('https://airy-rattle-fountain.glitch.me/api/orders');
-                const orders = await res.json();
+                const response = await fetch('https://airy-rattle-fountain.glitch.me/api/orders');
+                const orders = await response.json();
                 
                 if (orders && orders.length > 0) {
                     const latestOrder = orders[orders.length - 1];
                     
-                    if (!lastOrderCheck || latestOrder.id > lastOrderCheck) {
-                        lastOrderCheck = latestOrder.id;
+                    if (!window.store.lastOrderCheck || latestOrder.id > window.store.lastOrderCheck) {
+                        window.store.lastOrderCheck = latestOrder.id;
                         handleIncomingOrder(latestOrder);
                     }
                 }
@@ -392,7 +520,7 @@
         }
 
         function handleIncomingOrder(orderData) {
-            currentOrder = orderData;
+            window.store.currentOrder = orderData;
             document.getElementById('productsSection').style.display = 'none';
             document.getElementById('checkoutSection').style.display = 'block';
             
@@ -410,51 +538,13 @@
             document.getElementById('totalPrice').textContent = `${orderData.totalPrice} ج.م`;
         }
 
-        function confirmOrder() {
-            const orderData = currentOrder || {
-                products: cart.map(p => ({
-                    id: p.id,
-                    name: p.name,
-                    price: p.price
-                })),
-                totalPrice: cart.reduce((sum, p) => sum + p.price, 0)
-            };
-
-            fetch('https://airy-rattle-fountain.glitch.me/api/order', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            })
-            .then(response => {
-                if (response.status === 201) {
-                    showSuccessMessage();
-                    currentOrder = null;
-                    cart = [];
-                    updateCartCount();
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-
-        function showSuccessMessage() {
-            document.getElementById('checkoutSection').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
-        }
-
-        function hideSuccessMessage() {
-            document.getElementById('successMessage').style.display = 'none';
-            backToProducts();
-        }
-
         async function checkFilterUpdate() {
             try {
-                const res = await fetch('https://airy-rattle-fountain.glitch.me/api/filter');
-                const filter = await res.json();
+                const response = await fetch('https://airy-rattle-fountain.glitch.me/api/filter');
+                const filter = await response.json();
 
-                if (JSON.stringify(filter) !== JSON.stringify(lastFilter)) {
-                    lastFilter = filter;
+                if (JSON.stringify(filter) !== JSON.stringify(window.store.lastFilter)) {
+                    window.store.lastFilter = filter;
                     filterProducts(filter.category, filter.brand);
                 }
             } catch (error) {
@@ -480,38 +570,41 @@
         renderProducts();
         setInterval(checkFilterUpdate, 2000);
         setInterval(checkNewOrders, 2000);
+        getCart(); // Initial cart fetch
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chatbot scripts -->
+    <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js"></script>
     <script>
-        // Initialize Botpress chat widget with custom configuration
-        window.botpressWebChat.init({
-            "composerPlaceholder": "اكتب رسالتك هنا...",
-            "botConversationDescription": "مساعد المتجر",
-            "botId": "NOZ5039Y",
-            "hostUrl": "https://cdn.botpress.cloud/webchat/v2.5",
-            "messagingUrl": "https://messaging.botpress.cloud",
-            "clientId": "NOZ5039Y",
-            "lazySocket": true,
-            "frontendVersion": "v2.5",
-            "showPoweredBy": false,
-            "theme": "light",
-            "themeColor": "#2563eb",
-            "hideWidget": false,
-            "disableAnimations": false,
-            "closeOnEscape": false,
-            "showConversationsButton": true,
-            "enableTranscriptDownload": false,
-            "stylesheet": "https://webchat-styler-css.botpress.app/prod/code/4c06c300-9359-4c23-a8a6-b82aa18e48a1/v31894/style.css",
-            "className": "bp-widget-web",
-            "containerWidth": "100%25",
-            "layoutWidth": "100%25",
-            "showCloseButton": true,
-            "enableConversationDeletion": true,
-            "useSessionStorage": true,
-            "avatarUrl": "https://avatars.githubusercontent.com/u/65810938?v=4",
-            "locale": "ar",
-            "defaultLanguage": "ar"
+        window.addEventListener('load', () => {
+            window.botpressWebChat.init({
+                "composerPlaceholder": "اكتب رسالتك هنا...",
+                "botConversationDescription": "مساعد المتجر",
+                "botId": "NOZ5039Y",
+                "hostUrl": "https://cdn.botpress.cloud/webchat/v2.5",
+                "messagingUrl": "https://messaging.botpress.cloud",
+                "clientId": "NOZ5039Y",
+                "webhookId": "NOZ5039Y",
+                "lazySocket": true,
+                "themeName": "prism",
+                "frontendVersion": "v2.5",
+                "showPoweredBy": false,
+                "theme": "light",
+                "themeColor": "#2563eb",
+                "hideWidget": false,
+                "disableAnimations": false,
+                "closeOnEscape": false,
+                "showConversationsButton": true,
+                "enableTranscriptDownload": false,
+                "className": "bp-widget-web",
+                "containerWidth": "100%",
+                "layoutWidth": "100%",
+                "showCloseButton": true,
+                "enableConversationDeletion": true,
+                "useSessionStorage": true,
+                "locale": "ar",
+                "defaultLanguage": "ar"
+            });
         });
     </script>
 </body>
