@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر إلكتروني</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .product-card {
+            border: none;
+            border-radius: 15px;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #checkoutSection {
+            display: none;
+        }
+
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">متجرنا</a>
+            <button class="btn btn-outline-primary position-relative" id="cartBtn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cartCount">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Products Section -->
+        <div id="productsSection">
+            <h2 class="mb-4 text-center">منتجاتنا</h2>
+            <div class="row g-4" id="productsContainer">
+                <!-- Products will be inserted here dynamically -->
+            </div>
+        </div>
+
+        <!-- Checkout Section -->
+        <div id="checkoutSection" class="mt-4">
+            <h2 class="mb-4">سلة المشتريات</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div id="checkoutItems"></div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4>المجموع الكلي:</h4>
+                        <h4 id="totalPrice">0 ج.م</h4>
+                    </div>
+                    <div class="mt-4">
+                        <button class="btn btn-secondary me-2" onclick="backToProducts()">العودة للمنتجات</button>
+                        <button class="btn btn-primary" onclick="confirmOrder()">تأكيد الطلب</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-message text-center" id="successMessage">
+            <i class="fas fa-check-circle text-success fa-3x mb-3"></i>
+            <h3>تم تأكيد طلبك بنجاح!</h3>
+            <p>سيتم التواصل معك قريباً</p>
+            <button class="btn btn-primary mt-3" onclick="hideSuccessMessage()">العودة للمتجر</button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                name: "Samsung Galaxy A23",
+                category: "تليفونات",
+                brand: "سامسونج",
+                price: 4999,
+                image: "https://images.samsung.com/is/image/samsung/p6pim/levant/sm-a236elbhmea/gallery/levant-galaxy-a23-sm-a236-sm-a236elbhmea-531826124"
+            },
+            {
+                id: 2,
+                name: "Xiaomi Note 12",
+                category: "تليفونات",
+                brand: "شاومي",
+                price: 5999,
+                image: "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1672739458.60444233!500x500.png"
+            },
+            {
+                id: 3,
+                name: "LG WashPro",
+                category: "غسالات",
+                brand: "LG",
+                price: 8999,
+                image: "https://www.lg.com/eg_ar/images/washing-machines/md07554743/gallery/D-1.jpg"
+            },
+            {
+                id: 4,
+                name: "Samsung WashX",
+                category: "غسالات",
+                brand: "سامسونج",
+                price: 9499,
+                image: "https://images.samsung.com/is/image/samsung/p6pim/eg/ww90t534das1eg/gallery/eg-front-loading-washer-ww90t534das1eg-thumb-531704228"
+            },
+            // Add more products here...
+        ];
+
+        let cart = [];
+        let lastFilter = {};
+
+        function renderProducts() {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = products.map(product => `
+                <div class="col-md-4 col-lg-3 product" data-category="${product.category}" data-brand="${product.brand}">
+                    <div class="card product-card">
+                        <img src="${product.image}" class="card-img-top product-image" alt="${product.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text">
+                                <small class="text-muted">${product.category} - ${product.brand}</small>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 mb-0">${product.price} ج.م</span>
+                                <button class="btn btn-primary btn-sm" onclick="addToCart(${product.id})">
+                                    <i class="fas fa-cart-plus"></i> أضف للسلة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            cart.push(product);
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function showCheckout() {
+            document.getElementById('productsSection').style.display = 'none';
+            document.getElementById('checkoutSection').style.display = 'block';
+            renderCheckout();
+        }
+
+        function renderCheckout() {
+            const container = document.getElementById('checkoutItems');
+            const total = cart.reduce((sum, product) => sum + product.price, 0);
+            
+            container.innerHTML = cart.map(product => `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h5>${product.name}</h5>
+                        <small class="text-muted">${product.category} - ${product.brand}</small>
+                    </div>
+                    <span>${product.price} ج.م</span>
+                </div>
+            `).join('');
+            
+            document.getElementById('totalPrice').textContent = `${total} ج.م`;
+        }
+
+        function backToProducts() {
+            document.getElementById('checkoutSection').style.display = 'none';
+            document.getElementById('productsSection').style.display = 'block';
+        }
+
+        function confirmOrder() {
+            const order = {
+                products: cart.map(p => ({
+                    id: p.id,
+                    name: p.name,
+                    price: p.price
+                })),
+                totalPrice: cart.reduce((sum, p) => sum + p.price, 0)
+            };
+
+            // Send order to server
+            fetch('https://store-api.glitch.me/api/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(order)
+            })
+            .then(() => {
+                showSuccessMessage();
+                cart = [];
+                updateCartCount();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function showSuccessMessage() {
+            document.getElementById('successMessage').style.display = 'block';
+        }
+
+        function hideSuccessMessage() {
+            document.getElementById('successMessage').style.display = 'none';
+            backToProducts();
+        }
+
+        async function checkFilterUpdate() {
+            try {
+                const res = await fetch('https://store-api.glitch.me/api/filter');
+                const filter = await res.json();
+
+                if (JSON.stringify(filter) !== JSON.stringify(lastFilter)) {
+                    lastFilter = filter;
+                    filterProducts(filter.category, filter.brand);
+                }
+            } catch (error) {
+                console.error('Error fetching filter:', error);
+            }
+        }
+
+        function filterProducts(category, brand) {
+            const products = document.querySelectorAll('.product');
+            products.forEach(p => {
+                const cat = p.dataset.category;
+                const br = p.dataset.brand;
+                if ((category && cat !== category) || (brand && br !== brand)) {
+                    p.classList.add('hidden');
+                } else {
+                    p.classList.remove('hidden');
+                }
+            });
+        }
+
+        // Initialize
+        document.getElementById('cartBtn').addEventListener('click', showCheckout);
+        renderProducts();
+        setInterval(checkFilterUpdate, 2000);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
