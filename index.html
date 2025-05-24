@@ -151,6 +151,7 @@
 
         let cart = [];
         let lastFilter = {};
+        let currentOrder = null;
 
         function renderProducts() {
             const container = document.getElementById('productsContainer');
@@ -213,8 +214,26 @@
             document.getElementById('productsSection').style.display = 'block';
         }
 
+        function handleIncomingOrder(orderData) {
+            currentOrder = orderData;
+            document.getElementById('productsSection').style.display = 'none';
+            document.getElementById('checkoutSection').style.display = 'block';
+            
+            const container = document.getElementById('checkoutItems');
+            container.innerHTML = orderData.products.map(product => `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h5>${product.name}</h5>
+                    </div>
+                    <span>${product.price} ج.م</span>
+                </div>
+            `).join('');
+            
+            document.getElementById('totalPrice').textContent = `${orderData.totalPrice} ج.م`;
+        }
+
         function confirmOrder() {
-            const order = {
+            const orderData = currentOrder || {
                 products: cart.map(p => ({
                     id: p.id,
                     name: p.name,
@@ -223,23 +242,26 @@
                 totalPrice: cart.reduce((sum, p) => sum + p.price, 0)
             };
 
-            // Send order to server
             fetch('https://airy-rattle-fountain.glitch.me/api/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(order)
+                body: JSON.stringify(orderData)
             })
-            .then(() => {
-                showSuccessMessage();
-                cart = [];
-                updateCartCount();
+            .then(response => {
+                if (response.status === 201) {
+                    showSuccessMessage();
+                    currentOrder = null;
+                    cart = [];
+                    updateCartCount();
+                }
             })
             .catch(error => console.error('Error:', error));
         }
 
         function showSuccessMessage() {
+            document.getElementById('checkoutSection').style.display = 'none';
             document.getElementById('successMessage').style.display = 'block';
         }
 
